@@ -50,13 +50,14 @@ alt.on(SYSTEM_EVENTS.BOOTUP_ENABLE_ENTRY, async () => {
             }
             const outPos =  new alt.Vector3(location.x2, location.y2, location.z2);
             const outRot =  new alt.Vector3(location.x2r, location.y2r, location.z2r);
+            const endPos =  new alt.Vector3(location.x3, location.y3, location.z3);
             InteractionController.add({
                 position: new alt.Vector3(location.x, location.y, location.z),
                 description: OVRS_TRANSLATIONS.openRent,
                 range: dbRent.interactionRange ? dbRent.interactionRange : OVRS.interactionRange,
                 uid: `IC-${dbRent.dbName}-${i}`,
                 debug: false,
-                callback: (player: alt.Player) => initRentCallback(player, dbRent, outPos, outRot, ),
+                callback: (player: alt.Player) => initRentCallback(player, dbRent, outPos, outRot, endPos,),
             });
         }
     });
@@ -66,7 +67,8 @@ function getRandomInt(min: number, max: number) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
-async function initRentCallback(player: alt.Player, rent: IRent, outPos:Vector3, outRot:Vector3,) {
+
+async function initRentCallback(player: alt.Player, rent: IRent, outPos:Vector3, outRot:Vector3, endPos:Vector3,) {
     let currentRent = rent;
     let dbRent: IRent = await Database.fetchAllByField<IRent>('dbName', rent.dbName, OVRS.collection)[0];
     if (dbRent) {
@@ -74,7 +76,7 @@ async function initRentCallback(player: alt.Player, rent: IRent, outPos:Vector3,
     }
     let dataVehicles = [];
     for (const vehicle of currentRent.data.vehicles) {
-            dataVehicles.push({ name: vehicle.name, price: vehicle.price, modelName: vehicle.modelName, image: vehicle.icon, outPos:outPos, outRot:outRot });
+            dataVehicles.push({ name: vehicle.name, price: vehicle.price, modelName: vehicle.modelName, image: vehicle.icon, outPos:outPos, outRot:outRot, endPos:endPos,  });
             //alt.log(`Rent data push ${vehicle.modelName} ${vehicle.price} ${vehicle.name} ${vehicle.icon} ${outPos} ${outRot}`);
     }
     alt.emitClient(player, `${PAGENAME}:Client:OpenRent`, dataVehicles);

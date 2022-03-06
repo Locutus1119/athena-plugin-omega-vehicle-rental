@@ -16,6 +16,7 @@ export const OVRS = {
 export enum OVRS_TRANSLATIONS {
     openRent = 'Open Rent',
     notEnoughCash = 'Nincs elég pénzed',
+    rentStart = 'Kibéreltél egy ',
 
 }
 

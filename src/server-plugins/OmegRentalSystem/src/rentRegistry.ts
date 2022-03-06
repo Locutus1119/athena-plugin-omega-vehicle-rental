@@ -1,6 +1,7 @@
 import IRent from './interfaces/IRent';
 import { baseRentLocations } from './rentLists/baseRent';
 import { cyclesRentLocations } from './rentLists/cyclesRent';
+import { escaleraRentLocations } from './rentLists/escaleraRent';
 
 
 export const RentRegistry: Array<IRent> = [
@@ -34,5 +35,23 @@ export const RentRegistry: Array<IRent> = [
             ],
         },
         locations: cyclesRentLocations,
+    },
+    {
+        name: 'Escalera Rent A Car',
+        dbName: 'Escalera-Rent-A-Car',
+        blipSprite: 227,
+        blipColor: 38,
+        blipScale: 1,
+        data: {
+            vehicles: [
+                {name: 'Sentinel', price: 75, modelName: 'sentinel', icon:'crate' },
+                {name: 'F620',  price: 375, modelName: 'f620', icon:'crate'  },
+                {name: 'Dubsta',  price: 250, modelName: 'dubsta', icon:'crate' },
+                {name: 'Zion',  price: 250, modelName: 'zion', icon:'crate'  },
+                {name: 'Serrano',  price: 300, modelName: 'serrano', icon:'crate'  },
+               
+            ],
+        },
+        locations: escaleraRentLocations,
     },
 ];
