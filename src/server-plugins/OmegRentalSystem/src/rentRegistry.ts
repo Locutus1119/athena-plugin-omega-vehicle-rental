@@ -3,7 +3,6 @@ import { baseRentLocations } from './rentLists/baseRent';
 import { cyclesRentLocations } from './rentLists/cyclesRent';
 import { escaleraRentLocations } from './rentLists/escaleraRent';
 
-
 export const RentRegistry: Array<IRent> = [
     {
         name: 'Base Rent',
@@ -13,11 +12,11 @@ export const RentRegistry: Array<IRent> = [
         blipScale: 1,
         data: {
             vehicles: [
-                {name: 'Sentinel', price: 75, modelName: 'sentinel', icon:'crate' },
-                {name: 'F620',  price: 375, modelName: 'f620', icon:'crate'  },
-                {name: 'Dubsta',  price: 250, modelName: 'dubsta', icon:'crate' },
-                {name: 'Zion',  price: 250, modelName: 'zion', icon:'crate'  },
-                {name: 'Serrano',  price: 300, modelName: 'serrano', icon:'crate'  },
+                { name: 'Sentinel', price: 75, modelName: 'sentinel', icon: 'crate' },
+                { name: 'F620', price: 375, modelName: 'f620', icon: 'crate' },
+                { name: 'Dubsta', price: 250, modelName: 'dubsta', icon: 'crate' },
+                { name: 'Zion', price: 250, modelName: 'zion', icon: 'crate' },
+                { name: 'Serrano', price: 300, modelName: 'serrano', icon: 'crate' },
             ],
         },
         locations: baseRentLocations,
@@ -29,10 +28,7 @@ export const RentRegistry: Array<IRent> = [
         blipColor: 38,
         blipScale: 1,
         data: {
-            vehicles: [
-                {name: 'Scorcher', price: 75, modelName: 'scorcher', icon:'crate' },
-               
-            ],
+            vehicles: [{ name: 'Scorcher', price: 75, modelName: 'scorcher', icon: 'crate' }],
         },
         locations: cyclesRentLocations,
     },
@@ -44,12 +40,11 @@ export const RentRegistry: Array<IRent> = [
         blipScale: 1,
         data: {
             vehicles: [
-                {name: 'Sentinel', price: 75, modelName: 'sentinel', icon:'crate' },
-                {name: 'F620',  price: 375, modelName: 'f620', icon:'crate'  },
-                {name: 'Dubsta',  price: 250, modelName: 'dubsta', icon:'crate' },
-                {name: 'Zion',  price: 250, modelName: 'zion', icon:'crate'  },
-                {name: 'Serrano',  price: 300, modelName: 'serrano', icon:'crate'  },
-               
+                { name: 'Sentinel', price: 75, modelName: 'sentinel', icon: 'crate' },
+                { name: 'F620', price: 375, modelName: 'f620', icon: 'crate' },
+                { name: 'Dubsta', price: 250, modelName: 'dubsta', icon: 'crate' },
+                { name: 'Zion', price: 250, modelName: 'zion', icon: 'crate' },
+                { name: 'Serrano', price: 300, modelName: 'serrano', icon: 'crate' },
             ],
         },
         locations: escaleraRentLocations,
