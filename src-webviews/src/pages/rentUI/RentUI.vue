@@ -93,7 +93,7 @@ export default defineComponent({
     data() {
         return {
             rentType: 'buy',
-            buttonText: 'Vásárlás',
+            buttonText: 'Start of rental',
             buttonColor: 'green',
             search: '',
             selectedAmount: [],
@@ -172,7 +172,7 @@ export default defineComponent({
                 this.buttonColor = 'red';
                 this.rentType = 'sell';
             } else if (type === 'buy') {
-                this.buttonText = 'Vásárlás';
+                this.buttonText = 'Start of rental';
                 this.buttonColor = 'green';
                 this.rentType = 'buy';
             }
@@ -194,8 +194,8 @@ export default defineComponent({
                 `${ComponentName}:Client:HandleRent`,
                 rentSystem.RentVehicles[index],
                 this.selectedAmount[index],
-                rentSystem.outPos,
-                rentSystem.outRot,
+
+
                 
             );
             return;

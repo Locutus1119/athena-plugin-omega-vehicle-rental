@@ -1,6 +1,5 @@
 import * as alt from 'alt-server';
 import Logger from '../../../server/utility/athenaLogger';
-
 import { OVRS_TRANSLATIONS } from '../index';
 import { playerFuncs } from '../../../server/extensions/extPlayer';
 import { CurrencyTypes } from '../../../shared/enums/currency';
@@ -15,8 +14,17 @@ alt.onClient(`${PAGENAME}:Server:HandleRent`, async (player: alt.Player, rentVeh
     const rentOutRot = rentVehicle.outRot;
     const rentPrice = rentVehicle.price * amount;
     const rentTime = amount * 60000;
-    // const Test = new alt.ColshapeSphere(rentVehicle.outPos.x, rentVehicle.outPos.y, rentVehicle.outPos.z - 1, 2);
     const rentUid = `Rent-${player.id}-${rentVeh}`;
+
+    if (rentPrice > player.data.cash) {
+        playerFuncs.emit.notification(player, OVRS_TRANSLATIONS.notEnoughCash);
+        return;
+    }
+
+    //Pos szabad?
+
+    if (!player.getMeta("isRenting") == true) {
+        player.setMeta("isRenting", true);
 
     const rentedVehicle = Rent.addVehicle(
         player,
@@ -30,11 +38,10 @@ alt.onClient(`${PAGENAME}:Server:HandleRent`, async (player: alt.Player, rentVeh
 
     rentedVehicle.setStreamSyncedMeta(`Rented-Vehicle`, player.data.name);
     rentedVehicle.setStreamSyncedMeta('IsRentVehicle', true);
-
+    playerFuncs.emit.createSpinner(player, { duration: rentTime, text:   `Autobérlés` });
     playerFuncs.currency.sub(player, CurrencyTypes.CASH, rentPrice);
     playerFuncs.emit.notification(player, `${OVRS_TRANSLATIONS.rentStart} ${rentVeh} `);
-    Logger.info(`(${player.data.name}) has rented a Vehicle - Model: ${rentVeh} Position: ${player.pos}`);
-    
+
     alt.setTimeout(() => {
         const allVehicles = alt.Vehicle.all;
         allVehicles.forEach((vehicle) => {
@@ -51,6 +58,6 @@ alt.onClient(`${PAGENAME}:Server:HandleRent`, async (player: alt.Player, rentVeh
             }
         });
         alt.log("Timeout fired.");
+        player.setMeta("isRenting", false);
     }, rentTime);
-    alt.log(JSON.stringify(`rentTime ${rentTime}`));
-});
+}});
