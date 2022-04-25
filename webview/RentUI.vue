@@ -5,7 +5,7 @@
                 <div class="rentVehicle" v-for="(rentVehicle, index) in filteredVehicles" :key="index">
                     <div class="vehicle" v-if="RentSystem.RentVehicles">
                         <div class="image">
-                            <img :src="ResolvePath(`../../assets/icons/${rentVehicle.image}.png`)" id="Images" />
+                         <!--    <img :src="ResolvePath(`../../assets/icons/${rentVehicle.image}.png`)" id="Images" /> -->
                         </div>
                         <div class="descriptions">
                             <span>{{ rentVehicle.name }}</span
@@ -47,15 +47,15 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue';
-import Button from '../../components/Button.vue';
-import Frame from '../../components/Frame.vue';
-import Icon from '../../components/Icon.vue';
-import Input from '../../components/Input.vue';
-import Modal from '../../components/Modal.vue';
-import Module from '../../components/Module.vue';
-import RangeInput from '../../components/RangeInput.vue';
-import Toolbar from '../../components/Toolbar.vue';
-import ResolvePath from '../../utility/pathResolver';
+import Button from '@components/Button.vue';
+import Frame from '@components/Frame.vue';
+import Icon from '@components/Icon.vue';
+import Input from '@components/Input.vue';
+import Modal from '@components/Modal.vue';
+import Module from '@components/Module.vue';
+import RangeInput from '@components/RangeInput.vue';
+import Toolbar from '@components/Toolbar.vue';
+//import ResolvePath from '@utility/pathResolver';
 // DEBUGGING
 /*
 const SHOP = [
@@ -93,7 +93,7 @@ export default defineComponent({
     data() {
         return {
             rentType: 'buy',
-            buttonText: 'Start of rental',
+            buttonText: 'Bérlés',
             buttonColor: 'green',
             search: '',
             selectedAmount: [],
@@ -145,6 +145,7 @@ export default defineComponent({
     },
     // Used to define functions you can call with 'this.x'
     methods: {
+       // ResolvePath,
         addCommas(nStr: string) {
             nStr += '';
             var x = nStr.split('.');
@@ -172,7 +173,7 @@ export default defineComponent({
                 this.buttonColor = 'red';
                 this.rentType = 'sell';
             } else if (type === 'buy') {
-                this.buttonText = 'Start of rental';
+                this.buttonText = 'Bérlés';
                 this.buttonColor = 'green';
                 this.rentType = 'buy';
             }
@@ -205,13 +206,13 @@ export default defineComponent({
                 alt.emit(`${ComponentName}:Vue:CloseRent`);
             }
         },
-        ResolvePath,
+        
     },
 });
 </script>
 
 <style scoped>
-/* SHOPWRAPPER - DO NOT MODIFY */
+/* SHOPWRAPPER - DO NOT MODIFY */@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 .rentWrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
