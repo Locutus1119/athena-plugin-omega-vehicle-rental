@@ -1,8 +1,10 @@
 import * as alt from 'alt-client';
-import { Vector3 } from 'alt-shared';
-import { WebViewController } from '../../client/extensions/view2';
-import ViewModel from '../../client/models/viewModel';
-import { isAnyMenuOpen } from '../../client/utility/menus';
+// import { Vector3 } from 'alt-shared';
+import { WebViewController } from '../../../client/extensions/view2';
+import ViewModel from '../../../client/models/viewModel';
+import { isAnyMenuOpen } from '../../../client/utility/menus';
+import './src/client-events';
+// import { drawText2D } from '../../../client/utility/text';
 
 // You should change this to match your Vue Template's ComponentName.
 const PAGE_NAME = 'RentUI';
@@ -59,6 +61,7 @@ class InternalFunctions implements ViewModel {
         alt.Player.local.isMenuOpen = false;
     }
 
+
     /**
      * You should call this from the WebView.
      * What this will let you do is define local data in the client.
@@ -91,3 +94,4 @@ rentView.on(`${PAGE_NAME}:Client:HandleRent`, (rentVehicle: {}[], amount: number
     alt.emitServer(`${PAGE_NAME}:Server:HandleRent`, rentVehicle, amount,);
     return;
 });
+

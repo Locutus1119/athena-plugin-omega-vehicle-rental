@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { Vehicle_Behavior } from '../../../shared/enums/vehicle';
+import { Vehicle_Behavior } from '../../../../shared/enums/vehicle';
 let vehicles: Array<alt.Vehicle> = [];
 
 export default class Rent {

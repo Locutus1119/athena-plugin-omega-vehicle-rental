@@ -2,9 +2,9 @@ import { IRentLocation } from '../interfaces/IRent';
 
 export const escaleraRentLocations: IRentLocation[] = [
     {
-        x: -905.5780029296875,
-        y: -2338.33837890625,
-        z: 6.7010498046875,
+        x: -902.8615112304688, 
+        y: -2343.046142578125, 
+        z: 6.86962890625,
         isBlip: true,
         x2: -903.4216918945312,
         y2: -2330.271728515625,

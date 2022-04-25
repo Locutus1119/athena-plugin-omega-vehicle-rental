@@ -1,6 +1,6 @@
 import IRentListVehicle from './IRentList';
-import { Animation } from '../../../../shared/interfaces/animation';
-import alt from "alt-server";
+import { Animation } from '../../../../../shared/interfaces/animation';
+import * as alt from 'alt-server';
 
 export default interface IRent {
     _id?: string;
@@ -29,6 +29,9 @@ export interface IRentLocation {
     x2r: number;
     y2r: number;
     z2r: number;
+   // x3: number;
+   // y3: number;
+   // z3: number;
     
     ped?: {
         model: string;

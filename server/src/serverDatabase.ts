@@ -1,14 +1,15 @@
 import * as alt from 'alt-server';
 import Database from '@stuyk/ezmongodb';
 import IRent from './interfaces/IRent';
-import { PedController } from '../../../server/streamers/ped';
+import { PedController } from '../../../../server/streamers/ped';
 import { OVRS, OVRS_TRANSLATIONS } from '../index';
-import { InteractionController } from '../../../server/systems/interaction';
-import { ServerBlipController } from '../../../server/systems/blip';
-import { SYSTEM_EVENTS } from '../../../shared/enums/system';
+import { InteractionController } from '../../../../server/systems/interaction';
+import { ServerBlipController } from '../../../../server/systems/blip';
+import { SYSTEM_EVENTS } from '../../../../shared/enums/system';
 import { RentRegistry } from './rentRegistry';
-import { deepCloneObject } from '../../../shared/utility/deepCopy';
+import { deepCloneObject } from '../../../../shared/utility/deepCopy';
 import { Vector3 } from 'alt-shared';
+import { Athena } from '../../../../server/api/athena';
 
 const PAGENAME = 'RentUI';
 
@@ -52,7 +53,7 @@ alt.on(SYSTEM_EVENTS.BOOTUP_ENABLE_ENTRY, async () => {
             }
             const outPos = new alt.Vector3(location.x2, location.y2, location.z2);
             const outRot = new alt.Vector3(location.x2r, location.y2r, location.z2r);
-            InteractionController.add({
+            Athena.controllers.interaction.add({
                 position: new alt.Vector3(location.x, location.y, location.z),
                 description: OVRS_TRANSLATIONS.openRent,
                 range: dbRent.interactionRange ? dbRent.interactionRange : OVRS.interactionRange,
