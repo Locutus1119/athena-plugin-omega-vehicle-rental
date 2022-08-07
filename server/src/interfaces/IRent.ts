@@ -29,9 +29,7 @@ export interface IRentLocation {
     x2r: number;
     y2r: number;
     z2r: number;
-   // x3: number;
-   // y3: number;
-   // z3: number;
+
     
     ped?: {
         model: string;

@@ -1,24 +1,11 @@
-# OmegaRentalSystem
+# Omega-Rental-System
+
+The aim of the tool is to provide a vehicle rental service. The plugin is still under development. All ideas, advice and improvements are welcome.
+
 !!!Special thanks to DerLord for all the help and OSS!!!
 
 Install plugin:
 
-Drop RentUI into a folder called “RentUI” inside of src-webviews/src/pages
+Drop files into omega-rental-system  here -> src/core/plugins
 
-Drop server/client files into OmegaRentalSystem --client stuff here -> src/core/client-plugins --server stuff here -> src/core/server-plugins
 
-Imports (Client) ->
-
---import './OmegaRentalSystem/view';
-
---import './OmegaRentalSystem/src/client-events';
-
-Imports (Server) ->
-
---import "./OmegaRentalSystem/index";
-
-src-webviews/pages/components.ts ->
-
---import RentUI from './rentUI/RentUI.vue';
-
---RentUI: shallowRef(RentUI),

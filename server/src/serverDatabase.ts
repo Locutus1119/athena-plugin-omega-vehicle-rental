@@ -10,6 +10,8 @@ import { RentRegistry } from './rentRegistry';
 import { deepCloneObject } from '../../../../shared/utility/deepCopy';
 import { Vector3 } from 'alt-shared';
 import { Athena } from '../../../../server/api/athena';
+import { ServerMarkerController } from '../../../../server/streamers/marker';
+import { MARKER_TYPE } from '../../../../shared/enums/markerTypes';
 
 const PAGENAME = 'RentUI';
 
@@ -37,6 +39,12 @@ alt.on(SYSTEM_EVENTS.BOOTUP_ENABLE_ENTRY, async () => {
                     text: dbRent.name,
                     scale: dbRent.blipScale,
                     uid: `Rent-${dbRent.dbName}-${i}`,
+                });
+                ServerMarkerController.append({
+                    pos: new alt.Vector3(location.x, location.y, location.z),
+                    color: new alt.RGBA(255, 255, 255, 150),
+                    type: MARKER_TYPE.CAR,
+                    scale: new alt.Vector3(1, 1, 1),
                 });
             }
             let isPed = location.ped;
@@ -79,13 +87,17 @@ async function initRentCallback(player: alt.Player, rent: IRent, outPos: Vector3
             name: vehicle.name,
             price: vehicle.price,
             modelName: vehicle.modelName,
-            image: vehicle.icon,
+            image: vehicle.image,
             outPos: outPos,
             outRot: outRot,
         });
-        alt.log(
-            `Pushed RENT Data => ${vehicle.modelName} ${vehicle.price} ${vehicle.name} ${vehicle.icon} ${outPos} ${outRot}`,
-        );
+        // alt.log(
+        //     `Pushed RENT Data => ${vehicle.modelName} ${vehicle.price} ${vehicle.name} ${vehicle.image} ${outPos} ${outRot}`,
+        // );
+        // alt.log(
+        //     `Probe RENT Data => ${dataVehicles} `,
+        // );
     }
+
     alt.emitClient(player, `${PAGENAME}:Client:OpenRent`, dataVehicles);
 }

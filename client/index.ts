@@ -1,12 +1,11 @@
 import * as alt from 'alt-client';
-// import { Vector3 } from 'alt-shared';
 import { WebViewController } from '../../../client/extensions/view2';
 import ViewModel from '../../../client/models/viewModel';
 import { isAnyMenuOpen } from '../../../client/utility/menus';
 import './src/client-events';
-// import { drawText2D } from '../../../client/utility/text';
 
-// You should change this to match your Vue Template's ComponentName.
+
+
 const PAGE_NAME = 'RentUI';
 const rentView = await WebViewController.get();
 let vehicles = [];

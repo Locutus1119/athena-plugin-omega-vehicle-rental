@@ -1,15 +1,15 @@
 <template>
-    <div class="rentContainer" id="Mainbody" style="width: 50%; height: 75%">
+    <div class="rentContainer" id="Mainbody" style="width: 55%; height: 75%">
         <div class="rentBackground">
             <div class="rentWrapper">
                 <div class="rentVehicle" v-for="(rentVehicle, index) in filteredVehicles" :key="index">
                     <div class="vehicle" v-if="RentSystem.RentVehicles">
-                        <div class="image">
-                         <!--    <img :src="ResolvePath(`../../assets/icons/${rentVehicle.image}.png`)" id="Images" /> -->
-                        </div>
                         <div class="descriptions">
                             <span>{{ rentVehicle.name }}</span
                             ><br /><br /><br />
+                        </div>
+                        <div class="iconIMG">
+                            <img :src="resolvePath(`../../assets/vehicles/${rentVehicle.image}.png`)" id="img" alt="vehicle-img" />
                         </div>
                         <div class="inputButtons">
                             <span>{{ addCommas(rentVehicle.price) }}$</span><br /><br />
@@ -39,7 +39,7 @@
                 <input type="text" v-model="search" placeholder="" required />
                 <div class="search-icon"></div>
             </div>
-            <Button color="red" class="btn-close" @click="closePage()">Bezár</Button>
+            <Button color="red" class="btn-close" @click="closePage()">Close</Button>
         </div>
     </div>
 </template>
@@ -47,30 +47,23 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue';
+import { defineAsyncComponent, onMounted, onUnmounted } from '@vue/runtime-core';
+import { ref } from 'vue';
 import Button from '@components/Button.vue';
 import Frame from '@components/Frame.vue';
-import Icon from '@components/Icon.vue';
+const Icon = defineAsyncComponent(() => import('@components/Icon.vue'));
 import Input from '@components/Input.vue';
 import Modal from '@components/Modal.vue';
 import Module from '@components/Module.vue';
 import RangeInput from '@components/RangeInput.vue';
 import Toolbar from '@components/Toolbar.vue';
-//import ResolvePath from '@utility/pathResolver';
+import ResolvePath from '../../../../../src-webviews/src/utility/pathResolver';
+import IRentListVehicle from '../server/src/interfaces/IRentList';
 // DEBUGGING
 /*
 const SHOP = [
     { name: 'Northern Haze Seeds', dbName: 'Northern Haze Seeds', price: 250, image: 'burger' },
     { name: 'Bread', dbName: 'Bread', price: 350, image: 'bread' },
-    { name: 'Burger', dbName: 'burger', price: 450, image: 'burger' },
-    { name: 'Bread', price: 550, image: 'bread' },
-    { name: 'Burger', price: 650, image: 'burger' },
-    { name: 'Bread', price: 750, image: 'bread' },
-    { name: 'Bread', price: 750, image: 'bread' },
-    { name: 'Bread', price: 750, image: 'bread' },
-    { name: 'Bread', price: 750, image: 'bread' },
-    { name: 'Bread', price: 750, image: 'bread' },
-    { name: 'Bread', price: 750, image: 'bread' },
-    { name: 'Bread', price: 750, image: 'bread' },
 ];
 */
 // Very Important! The name of the component must match the file name.
@@ -88,12 +81,13 @@ export default defineComponent({
         Module,
         RangeInput,
         Toolbar,
+        
     },
     // Used to define state
     data() {
         return {
             rentType: 'buy',
-            buttonText: 'Bérlés',
+            buttonText: 'Starting a rental',
             buttonColor: 'green',
             search: '',
             selectedAmount: [],
@@ -104,6 +98,7 @@ export default defineComponent({
                 outPos: [],
                 outRos: [],
             },
+            resolvePath: ResolvePath,
         };
     },
     // Called when the page is loaded.
@@ -168,14 +163,11 @@ export default defineComponent({
             this.RentSystem = rentSystem;
             //rentSystem.RentVehicles = RENT; // Debugging Purpose
             rentSystem.RentVehicles = rentVehicles;
-            if (type === 'sell') {
-                this.buttonText = 'Sell';
-                this.buttonColor = 'red';
-                this.rentType = 'sell';
-            } else if (type === 'buy') {
-                this.buttonText = 'Bérlés';
+                 if (type === 'buy') {
+                this.buttonText = 'Starting a rental';
                 this.buttonColor = 'green';
                 this.rentType = 'buy';
+                this.icon = rentSystem.RentVehicles.image;
             }
             return;
         },
@@ -189,15 +181,12 @@ export default defineComponent({
                 this.selectedAmount[index] < 1
             )
                 this.selectedAmount[index] = 1;
-            console.log(JSON.stringify(rentSystem.RentVehicles[0]));
-            console.log(index, this.selectedAmount[index]);
+            // console.log(JSON.stringify(rentSystem.RentVehicles[0]));
+            // console.log(index, this.selectedAmount[index]);
             alt.emit(
                 `${ComponentName}:Client:HandleRent`,
                 rentSystem.RentVehicles[index],
                 this.selectedAmount[index],
-
-
-                
             );
             return;
         },
@@ -206,7 +195,6 @@ export default defineComponent({
                 alt.emit(`${ComponentName}:Vue:CloseRent`);
             }
         },
-        
     },
 });
 </script>
@@ -215,13 +203,13 @@ export default defineComponent({
 /* SHOPWRAPPER - DO NOT MODIFY */@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 .rentWrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
 }
 
 .rentContainer {
-    width: 60vw;
-    padding: 0px;
+    width: 65vw;
+    padding: 5px;
     height: auto;
 }
 
@@ -230,6 +218,7 @@ export default defineComponent({
     color: white;
     user-select: none;
     height: auto;
+    width: 17vw;
     margin-bottom: 10px;
 }
 
@@ -237,7 +226,7 @@ export default defineComponent({
     color: white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,
         'Helvetica Neue', sans-serif;
-    font-weight: 700;
+    font-weight: 750;
     font-weight: none;
     font-size: 1em;
     background: rgb(0, 0, 0);
@@ -251,7 +240,12 @@ export default defineComponent({
 }
 
 .rentVehicle .image {
-    max-height: 150px;
+    max-height: 40px;
+}
+.rentVehicle  .iconIMG {
+    margin-left: 15px;
+    width: 48px;
+    height: auto;
 }
 
 .rentVehicle .descriptions {
@@ -260,11 +254,17 @@ export default defineComponent({
     text-overflow: ellipsis;
     word-wrap: break-word;
     overflow: hidden;
-    max-height: 4.4em;
+    max-height: 6.4em;
     line-height: 1.4em;
     text-align: center;
     padding-left: 5%;
     padding-right: 5%;
+}
+
+.rentVehicle .iconIMG {
+    margin-left: 10px;
+    max-width: 48px;
+    height: 40px;
 }
 
 .rentBackground {
@@ -273,7 +273,7 @@ export default defineComponent({
     left: 10vw;
     top: 10vh;
     height: 80vh;
-    width: 50vw;
+    width: 55vw;
     text-align: center;
     user-select: none;
     margin: 0 auto;
@@ -343,7 +343,7 @@ export default defineComponent({
 }
 .inputButtons {
     position: relative;
-    top: -0.5vh;
+    top: 5vh;
     align-items: center;
 }
 .buyButton {
@@ -418,7 +418,7 @@ export default defineComponent({
     display: inline-block;
     margin-top: 50px;
     top: 40%;
-    left: 50%;
+    left: 60%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
 }
@@ -476,7 +476,7 @@ export default defineComponent({
 .search-bar input:valid + .search-icon {
     z-index: 0;
     border-color: #ccc;
-    right: 20px;
+    right: 25px;
 }
 .search-bar input:focus + .search-icon:after,
 .search-bar input:valid + .search-icon:after {
